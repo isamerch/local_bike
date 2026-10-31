@@ -1,0 +1,281 @@
+version: 2
+
+models:
+  - name: stg__brands
+    description: "List of products' brands and its IDs."
+    columns:
+      - name: brand_id
+        description: "PK. Unique ID for each brand."
+        data_type: int64
+        config: 
+          meta:
+            primary_key: true
+        data_tests:
+          - unique
+          - not_null
+      - name: brand_name
+        description: "Name of products' brands."
+        data_type: string
+
+  - name: stg__categories
+    description: "List of products' categories and its IDs."
+    columns:
+      - name: category_id
+        description: "PK. Unique ID for each category."
+        data_type: int64
+        config: 
+          meta:
+            primary_key: true
+        data_tests:
+          - unique
+          - not_null
+      - name: category_name
+        description: "Name of products' categories."
+        data_type: string
+
+  - name: stg__customers
+    description: "List of customers and their region details."
+    columns:
+      - name: customer_id
+        description: "PK. Unique ID for each customer."
+        data_type: int64
+        config: 
+          meta:
+            primary_key: true
+        data_tests:
+          - unique
+          - not_null
+      - name: customer_city
+        description: "Name of customer's city address."
+        data_type: string
+      - name: customer_state
+        description: "State code of store's address."
+        data_type: string
+      - name: customer_zipcode
+        description: "Zip code of customer's address."
+        data_type: string
+
+  - name: stg__order_items
+    description: "List of purchased products by order_id."
+    columns:
+      - name: order_line_id
+        description: "PK. Concatenation of order_id and order_line in order to create a unique ID for this model."
+        data_type: string
+        config: 
+          meta:
+            primary_key: true
+        data_tests:
+          - unique
+          - not_null
+      - name: order_id
+        description: "Foreign key from stg__orders -> order_id."
+        data_type: int64
+        data_tests:
+          - relationships:
+              arguments: 
+                to: ref("stg__orders")
+                field: order_id
+      - name: order_line
+        description: "Line of the order_id."
+        data_type: int64
+      - name: product_id
+        description: "Foreign key from stg__products -> product_id."
+        data_type: int64
+        data_tests:
+          - relationships:
+              arguments: 
+                to: ref("stg__products")
+                field: product_id
+      - name: order_qty
+        description: "Quantity of purchased products."
+        data_type: int64
+      - name: list_price
+        description: "Unit price USD of the product."
+        data_type: float64
+        config: 
+          meta:
+            currency: "USD"
+      - name: discount_rate
+        description: "Discount rate given to the order_item_id."
+        data_type: float64
+        config: 
+          meta:
+            currency: "USD"
+
+  - name: stg__orders
+    description: "List of orders at the header level."
+    columns:
+      - name: order_id
+        description: "PK. Unique ID for the orders."
+        data_type: int64
+        config: 
+          meta:
+            primary_key: true
+        data_tests:
+        - unique
+        - not_null
+      - name: customer_id
+        description: "Foreign key from stg__customers -> customer_id."
+        data_type: int64
+        data_tests:
+          - relationships:
+              arguments:             
+                to: ref("stg__customers")
+                field: customer_id
+      - name: order_date
+        description: "Date of placed order_id."
+        data_type: date
+      - name: required_date
+        description: "Not clear by this stage if the date is filled by the customer or calculated by the system."
+        data_type: date
+      - name: shipped_date
+        description: "Date of shipment. When order_date = required_date then shipped_date is null."
+        data_type: date
+      - name: store_id
+        description: "Foreign key from stg__stores -> store_id."
+        data_type: int64
+        data_tests:
+          - relationships:
+              arguments: 
+                to: ref("stg__stores")
+                field: store_id
+      - name: staff_id
+        description: "Foreign key from stg__staffs -> staff_id."
+        data_type: int64
+        data_tests:
+          - relationships:
+              arguments: 
+                to: ref("stg__staffs")
+                field: staff_id
+
+  - name: stg__products
+    description: "List of products and their details."
+    columns:
+      - name: product_id
+        description: "PK. Unique ID for each product."
+        data_type: int64
+        config: 
+          meta:
+            primary_key: true
+        data_tests:
+          - unique
+          - not_null
+      - name: product_name
+        description: "Name of the products."
+        data_type: string
+      - name: brand_id
+        description: "Foreign key from stg__brands -> brand_id."
+        data_type: int64
+        data_tests:
+          - relationships:
+              arguments: 
+                to: ref("stg__brands")
+                field: brand_id
+      - name: category_id
+        description: "Foreign key from stg__products -> product_id."
+        data_type: int64
+        data_tests:
+          - relationships:
+              arguments: 
+                to: ref("stg__products")
+                field: product_id
+      - name: model_year
+        description: "Produced year of the product."
+        data_type: int64
+      - name: list_price
+        description: "Unit price USD of the product."
+        data_type: float64
+        config: 
+          meta:
+            currency: "USD"
+  
+  - name: stg__staffs
+    description: "List of staff."
+    columns:
+      - name: staff_id
+        description: "PK. Unique ID for each staff."
+        data_type: int64
+        config: 
+          meta:
+            primary_key: true
+        data_tests:
+          - unique
+          - not_null
+      - name: staff_status
+        description: "Status of employment. 1 if active."
+        data_type: int64
+      - name: store_id
+        description: "Foreign key from stg__stores -> store_id."
+        data_tests:
+          - relationships:
+              arguments: 
+                to: ref("stg__stores")
+                field: store_id
+      - name: manager_id
+        description: "ID from staffs' manager."
+        data_type: int64
+
+  - name: stg__stocks
+    description: "List of stocks by product and store."
+    columns:
+      - name: store_id
+        description: "Foreign key from stg__stores -> store_id."
+        data_type: int64
+        data_tests:
+          - relationships:
+              arguments: 
+                to: ref("stg__stores")
+                field: store_id
+      - name: product_id
+        description: "Foreign key from stg__products -> product_id."
+        data_type: int64
+        data_tests:
+          - relationships:
+              arguments: 
+                to: ref("stg__products")
+                field: product_id
+      - name: stock_qty
+        description: "Quantity of stock available."
+        data_type: int64
+
+  - name: stg__stores
+    description: "List of stores and its details."
+    columns:
+      - name: store_id
+        description: "PK. Unique ID for each store."
+        data_type: int64
+        config: 
+          meta:
+            primary_key: true
+        data_tests:
+          - unique
+          - not_null
+      - name: store_name
+        description: "Commercial name of the store."
+        data_type: string
+      - name: store_city
+        description: "Name of the city of store's address."
+        data_type: string
+      - name: store_state
+        description: "State code of store's address."
+        data_type: string
+      - name: store_zipcode
+        description: "Zip code of store's address."
+        data_type: int64
+
+          
+
+
+
+          
+
+          
+
+
+
+
+
+
+
+
+          
