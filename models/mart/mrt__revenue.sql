@@ -5,8 +5,14 @@ select
   p.category_name as CATEGORY,
   p.brand_name as BRAND,
   round(sum(s.order_line_amount)) as GROSS_REVENUE
-from {{ ref("int__sales") }} s 
-left join {{ ref("int__production") }} p on s.product_id = p.product_id
+from {{ ref("int__sales") }} s
+left join (
+  select distinct
+    product_id,
+    category_name,
+    brand_name
+  from {{ ref("int__production") }}
+) p on s.product_id = p.product_id
 group by
   YEAR,
   MONTH,
@@ -15,5 +21,4 @@ group by
   BRAND
 order by
   GROSS_REVENUE desc
-
 
