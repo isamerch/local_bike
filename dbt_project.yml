@@ -2,7 +2,7 @@
 # Name your project! Project names should contain only lowercase characters
 # and underscores. A good package name should reflect your organization's
 # name or the intended use of these models
-name: 'my_new_project'
+name: 'local_bike'
 version: '1.0.0'
 config-version: 2
 
@@ -36,14 +36,13 @@ clean-targets:         # directories to be removed by `dbt clean`
 # using the `{{ config(...) }}` macro.
 
 models:
-  +persist_docs:
+  local_bike:
+    +persist_docs:
       relation: true
       columns: true
-      
-  local_bike:
 
     staging:
-     +materialized: view
+      +materialized: view
 
     intermediate:
       +materialized: view
