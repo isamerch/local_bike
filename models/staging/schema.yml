@@ -218,6 +218,15 @@ models:
   - name: stg__stocks
     description: "List of stocks by product and store."
     columns:
+      - name: store_product_id
+        description: "PK. Concatenated column in order to create an unique ID."
+        data_type: string
+        config: 
+          meta:
+            primary_key: true
+        data_tests:
+          - unique
+          - not_null
       - name: store_id
         description: "Foreign key from stg__stores -> store_id."
         data_type: int64
