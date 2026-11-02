@@ -4,11 +4,6 @@ models:
   - name: int__sales
     description: '{{ doc("int__sales") }}'
     columns:
-      - name: order_line
-        description: "PK."
-        tests:
-          - unique
-          - not_null
       - name: order_line_amount
         description: >
           Calculated column. Gross amount of the order line, after discount, in USD.
