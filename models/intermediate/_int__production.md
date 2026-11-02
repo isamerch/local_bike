@@ -1,4 +1,4 @@
-{% docs int__promotions %}
+{% docs int__production %}
 
 This model aims to retrive the list of all the recorded products and enrich them with all the relevant columns from production staging models.
 Grain: store_id + product_id. 
