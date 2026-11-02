@@ -1,6 +1,23 @@
 # Project Local Bike
 
-This dbt project is meant to provide strategic insights to the operations teams, in order to help them to optimize sales and maximize the revenue.
+This dbt project provides strategic insights to the operations teams, to help them optimize sales and maximize revenue.
+
+## Objectives
+
+The project is organized around three main axes.
+
+### 1. Revenue analysis by store, category and brand
+- Identify the winning categories and brands in each store, to better allocate inventory and promotions.
+
+### 2. Stock analysis
+- **Old stock:** identify products that have never been sold, to promote them or discontinue them.
+- **Overstock:** identify products with excess inventory, to run promotions and reduce stock.
+- **Stock-outs:** identify sold-out products, to rebalance inventory between stores or re-order.
+
+### 3. Top 10 cities by items sold in the last year
+- Promote local events to strengthen and grow the community.
+- Seek sponsorship from the most popular brands.
+
 
 ## Conventions for collaboration :
 

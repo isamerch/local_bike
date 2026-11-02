@@ -126,7 +126,7 @@ models:
         description: "Date of placed order_id."
         data_type: date
       - name: required_date
-        description: "Not clear by this stage if the date is filled by the customer or calculated by the system."
+        description: "Date requested by the customer. If product is available at the store required_date = order_date."
         data_type: date
       - name: shipped_date
         description: "Date of shipment. When order_date = required_date then shipped_date is null."
