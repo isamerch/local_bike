@@ -1,5 +1,5 @@
 select
-  coalesce(sc.store_id, "SOLD-OUT") as store_id  
+  coalesce(sc.store_id, "SOLD-OUT") as store_id, 
   pr.product_id,
   pr.product_name,
   pr.model_year,
