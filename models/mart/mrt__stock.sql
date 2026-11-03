@@ -1,7 +1,7 @@
 with sales as (
   select
     max(order_date) as last_sold,
-    sum(order_qty) as total_sold,
+    coalesce(sum(order_qty), 0) as total_sold,
     product_id,
     store_id,
     store_state
