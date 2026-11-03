@@ -4,7 +4,7 @@ select
   s.store_state as STORE,
   p.category_name as CATEGORY,
   p.brand_name as BRAND,
-  round(sum(s.order_line_amount)) as GROSS_REVENUE
+  round(sum(s.order_line_amount)) as REVENUE
 from {{ ref("int__sales") }} s
 left join (
   select distinct
@@ -20,5 +20,5 @@ group by
   CATEGORY,
   BRAND
 order by
-  GROSS_REVENUE desc
+  REVENUE desc
 
