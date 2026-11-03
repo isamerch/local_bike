@@ -13,7 +13,7 @@ from {{ ref("int__sales") }}
 )
 
 select
-  s.store_state as STORE,
+  coalesce(s.store_state, "SOLD-OUT") as STORE,
   p.product_id as PRD_ID,
   p.product_name as PRD_NAME,
   p.model_year as MODEL_YEAR,
