@@ -1,7 +1,8 @@
 # Project Local Bike
 
 > **Note:** This repository is the final project of the Analytics Engineer training at [DataBird](https://www.data-bird.co/). The business case, objectives and context described below are hypothetical and were created for educational purposes.
-#> **Note(2):** Final PDF presentation available : local_bike_presentation
+>
+> **Final presentation:** [local_bike_presentation.pdf](./local_bike_presentation.pdf)
 
 ## Objectives
 
