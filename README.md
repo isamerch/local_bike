@@ -1,9 +1,11 @@
 # Project Local Bike
 
-This dbt project provides strategic insights to the operations teams, to help them optimize sales and maximize revenue.
+> **Note:** This repository is the final project of the Analytics Engineer training at [DataBird](https://www.data-bird.co/). The business case, objectives and context described below are hypothetical and were created for educational purposes.
+> **Note:** Final PDF presentation available : local_bike_presentation
 
 ## Objectives
 
+The goal of this project is to provide strategic insights to the operations teams, to help them optimize sales and maximize revenue.
 The project is organized around three main axes.
 
 ### 1. Revenue analysis by store, category and brand
